@@ -21,8 +21,8 @@ function! airline#themes#gruvbox#refresh()
 	let s:outerfgi = [ 16, '#3c3836']
 
 	" Backgrounds
-	let s:outerbg  = [ 16, 'NONE']
-	let s:innerbg  = [234, 'NONE']
+	let s:outerbg  = [ 16, '#282828']
+	let s:innerbg  = [235, '#282828']
 
 	" Normal mode
 	let s:N1 = [s:outerfg[1], s:outerbg[1], s:outerfg[0], s:gray[0]]
