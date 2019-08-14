@@ -748,10 +748,10 @@ let g:niji_light_colours = g:rbpt_colorpairs
 "}}}
 " GitGutter: {{{
 
-hi! link GitGutterAdd GruvboxGreenSign
-hi! link GitGutterChange GruvboxAquaSign
-hi! link GitGutterDelete GruvboxRedSign
-hi! link GitGutterChangeDelete GruvboxAquaSign
+" hi! link GitGutterAdd GruvboxGreenSign
+" hi! link GitGutterChange GruvboxAquaSign
+" hi! link GitGutterDelete GruvboxRedSign
+" hi! link GitGutterChangeDelete GruvboxAquaSign
 
 " }}}
 " GitCommit: "{{{
