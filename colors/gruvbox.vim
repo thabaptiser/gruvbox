@@ -404,7 +404,7 @@ function! s:HL(group, fg, ...)
   endif
 
   let histring = [ 'hi', a:group,
-        \ 'guifg=' . fg[0], 'ctermfg=' . fg[1],
+        \ 'guifg=' . bg[0], 'ctermfg=' . bg[1],
         \ 'guibg=' . bg[0], 'ctermbg=' . bg[1],
         \ 'gui=' . emstr[:-2], 'cterm=' . emstr[:-2]
         \ ]

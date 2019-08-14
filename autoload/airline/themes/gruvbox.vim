@@ -53,8 +53,6 @@ function! airline#themes#gruvbox#refresh()
         \ 'airline_c': [ '#df0000', '', 160, '', '' ] ,
         \ }
 
-
-
 endfunction
 
 call airline#themes#gruvbox#refresh()
