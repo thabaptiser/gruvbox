@@ -10,67 +10,129 @@ let g:airline#themes#gruvbox#palette = {}
 
 function! airline#themes#gruvbox#refresh()
 
-  let M0 = airline#themes#get_highlight('Identifier')
-  let accents_group = airline#themes#get_highlight('Special')
-  let modified_group = [M0[0], '', M0[2], '', '']
-  let warning_group = airline#themes#get_highlight2(['Normal', 'bg'], ['Question', 'fg'])
-  let error_group = airline#themes#get_highlight2(['Normal', 'bg'], ['WarningMsg', 'fg'])
+	" Colors
+	let s:gray     = [245, '#928374']
+	let s:darkgray = [245, '#665c54']
+	let s:golden   = [143, '#d79921']
+	let s:pink     = [131, '#cc241d']
+	let s:blue     = [ 67, '#98971a']
+	let s:orange   = [166, '#d65d0e']
+	let s:outerfg  = [ 16, '#fbf1c7']
+	let s:outerfgi = [ 16, '#3c3836']
 
-  let s:N1 = airline#themes#get_highlight2(['Normal', 'bg'], ['StatusLineNC', 'bg'])
-  let s:N2 = airline#themes#get_highlight2(['StatusLineNC', 'bg'], ['Pmenu', 'bg'])
-  let s:N3 = airline#themes#get_highlight2(['StatusLineNC', 'bg'], ['CursorLine', 'bg'])
-  let g:airline#themes#gruvbox#palette.normal = airline#themes#generate_color_map(s:N1, s:N2, s:N3)
-  let g:airline#themes#gruvbox#palette.normal_modified = { 'airline_c': modified_group }
-  let g:airline#themes#gruvbox#palette.normal.airline_warning = warning_group
-  let g:airline#themes#gruvbox#palette.normal_modified.airline_warning = warning_group
-  let g:airline#themes#gruvbox#palette.normal.airline_error = error_group
-  let g:airline#themes#gruvbox#palette.normal_modified.airline_error = error_group
+	" Backgrounds
+	let s:outerbg  = [ 16, 'NONE']
+	let s:innerbg  = [234, 'NONE']
 
-  let s:I1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Identifier', 'fg'])
-  let s:I2 = s:N2
-  let s:I3 = airline#themes#get_highlight2(['Normal', 'fg'], ['Pmenu', 'bg'])
-  let g:airline#themes#gruvbox#palette.insert = airline#themes#generate_color_map(s:I1, s:I2, s:I3)
-  let g:airline#themes#gruvbox#palette.insert_modified = g:airline#themes#gruvbox#palette.normal_modified
-  let g:airline#themes#gruvbox#palette.insert.airline_warning = g:airline#themes#gruvbox#palette.normal.airline_warning
-  let g:airline#themes#gruvbox#palette.insert_modified.airline_warning = g:airline#themes#gruvbox#palette.normal_modified.airline_warning
-  let g:airline#themes#gruvbox#palette.insert.airline_error = g:airline#themes#gruvbox#palette.normal.airline_error
-  let g:airline#themes#gruvbox#palette.insert_modified.airline_error = g:airline#themes#gruvbox#palette.normal_modified.airline_error
+	" Normal mode
+	let s:N1 = [s:outerfg[1], s:outerbg[1], s:outerfg[0], s:gray[0]]
+	let s:N3 = [s:gray[1]   , s:innerbg[1], s:gray[0]   , s:innerbg[0]]
 
-  let s:R1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Structure', 'fg'])
-  let s:R2 = s:I2
-  let s:R3 = s:I3
-  let g:airline#themes#gruvbox#palette.replace = airline#themes#generate_color_map(s:R1, s:R2, s:R3)
-  let g:airline#themes#gruvbox#palette.replace_modified = g:airline#themes#gruvbox#palette.normal_modified
-  let g:airline#themes#gruvbox#palette.replace.airline_warning = g:airline#themes#gruvbox#palette.normal.airline_warning
-  let g:airline#themes#gruvbox#palette.replace_modified.airline_warning = g:airline#themes#gruvbox#palette.normal_modified.airline_warning
-  let g:airline#themes#gruvbox#palette.replace.airline_error = g:airline#themes#gruvbox#palette.normal.airline_error
-  let g:airline#themes#gruvbox#palette.replace_modified.airline_error = g:airline#themes#gruvbox#palette.normal_modified.airline_error
+	" Normal mode - modified
+	let s:NM1 = [s:darkgray[1], s:orange[1], s:darkgray[0], s:orange[0]]
+	let s:NM3 = [s:orange[1]  , s:outerbg[1], s:orange[0], s:darkgray[0]]
 
-  let s:V1 = airline#themes#get_highlight2(['Normal', 'bg'], ['Question', 'fg'])
-  let s:V2 = s:N2
-  let s:V3 = airline#themes#get_highlight2(['Normal', 'bg'], ['TabLine', 'fg'])
-  let g:airline#themes#gruvbox#palette.visual = airline#themes#generate_color_map(s:V1, s:V2, s:V3)
-  let g:airline#themes#gruvbox#palette.visual_modified = { 'airline_c': [ s:V3[0], '', s:V3[2], '', '' ] }
-  let g:airline#themes#gruvbox#palette.visual.airline_warning = g:airline#themes#gruvbox#palette.normal.airline_warning
-  let g:airline#themes#gruvbox#palette.visual_modified.airline_warning = g:airline#themes#gruvbox#palette.normal_modified.airline_warning
-  let g:airline#themes#gruvbox#palette.visual.airline_error = g:airline#themes#gruvbox#palette.normal.airline_error
-  let g:airline#themes#gruvbox#palette.visual_modified.airline_error = g:airline#themes#gruvbox#palette.normal_modified.airline_error
+	" Insert mode
+	let s:I1 = [s:darkgray[1], s:golden[1], s:outerfg[0], s:golden[0]]
+	let s:I3 = [s:golden[1]  , s:innerbg[1], s:golden[0], s:innerbg[0]]
 
-  let s:IA = airline#themes#get_highlight2(['TabLine', 'fg'], ['CursorLine', 'bg'])
-  let g:airline#themes#gruvbox#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
-  let g:airline#themes#gruvbox#palette.inactive_modified = { 'airline_c': modified_group }
+	" Visual mode
+	let s:V1 = [s:darkgray[1], s:pink[1], s:outerfg[0], s:pink[0]]
+	let s:V3 = [s:pink[1]    , s:innerbg[1], s:pink[0], s:innerbg[0]]
 
-  let g:airline#themes#gruvbox#palette.accents = { 'red': accents_group }
+	" Replace mode
+	let s:R1 = [s:darkgray[1], s:blue[1], s:outerfg[0], s:blue[0]]
+	let s:R3 = [s:blue[1], s:innerbg[1], s:blue[0], s:innerbg[0]]
 
-  let s:TF = airline#themes#get_highlight2(['Normal', 'bg'], ['Normal', 'bg'])
-  let g:airline#themes#gruvbox#palette.tabline = {
-    \ 'airline_tab':  s:N2,
-    \ 'airline_tabsel':  s:N1,
-    \ 'airline_tabtype':  s:V1,
-    \ 'airline_tabfill':  s:TF,
-    \ 'airline_tabhid':  s:IA,
-    \ 'airline_tabmod':  s:I1
-    \ }
+	" Inactive pane
+	let s:IA = [s:darkgray[1], s:outerbg[1], s:innerbg[0], s:innerbg[0]]
+	let s:IAc = [s:gray[1], s:outerbg[1], s:outerbg[0], s:outerbg[0]]
+
+	let g:airline#themes#transparent#palette = {}
+	let g:airline#themes#transparent#palette.accents = {
+			\ 'red': ['#d70000', '', 160, '', '']}
+
+	let g:airline#themes#transparent#palette.inactive = {
+			\ 'airline_a': s:IA,
+			\ 'airline_b': s:IA,
+			\ 'airline_c': s:IAc,
+			\ 'airline_x': s:IA,
+			\ 'airline_y': s:IA,
+			\ 'airline_z': s:IA}
+
+	let g:airline#themes#transparent#palette.inactive_modified = {
+			\ 'airline_a': s:IA,
+			\ 'airline_b': s:IA,
+			\ 'airline_c': s:NM3,
+			\ 'airline_x': s:IA,
+			\ 'airline_y': s:IA,
+			\ 'airline_z': s:IA}
+
+	let g:airline#themes#transparent#palette.normal = {
+			\ 'airline_a': s:N1,
+			\ 'airline_b': s:N3,
+			\ 'airline_c': s:N3,
+			\ 'airline_x': s:N3,
+			\ 'airline_y': s:N3,
+			\ 'airline_z': s:N3}
+
+	let g:airline#themes#transparent#palette.normal_modified = {
+			\ 'airline_a': s:NM1,
+			\ 'airline_b': s:N3,
+			\ 'airline_c': s:N3,
+			\ 'airline_x': s:N3,
+			\ 'airline_y': s:N3,
+			\ 'airline_z': s:NM3}
+
+	let g:airline#themes#transparent#palette.insert = {
+			\ 'airline_a': s:I1,
+			\ 'airline_b': s:N3,
+			\ 'airline_c': s:N3,
+			\ 'airline_x': s:N3,
+			\ 'airline_y': s:N3,
+			\ 'airline_z': s:I3}
+	let g:airline#themes#transparent#palette.insert_modified = {}
+
+	let g:airline#themes#transparent#palette.replace = {
+			\ 'airline_a': s:R1,
+			\ 'airline_b': s:N3,
+			\ 'airline_c': s:N3,
+			\ 'airline_x': s:N3,
+			\ 'airline_y': s:N3,
+			\ 'airline_z': s:R3}
+	let g:airline#themes#transparent#palette.replace_modified = {}
+
+	let g:airline#themes#transparent#palette.visual = {
+			\ 'airline_a': s:V1,
+			\ 'airline_b': s:N3,
+			\ 'airline_c': s:N3,
+			\ 'airline_x': s:N3,
+			\ 'airline_y': s:N3,
+			\ 'airline_z': s:V3}
+	let g:airline#themes#transparent#palette.visual_modified = {}
+
+	let g:airline#themes#transparent#palette.normal.airline_warning = s:NM1
+
+	let g:airline#themes#transparent#palette.normal_modified.airline_warning =
+			\ g:airline#themes#transparent#palette.normal.airline_warning
+
+	let g:airline#themes#transparent#palette.insert.airline_warning =
+			\ g:airline#themes#transparent#palette.normal.airline_warning
+
+	let g:airline#themes#transparent#palette.insert_modified.airline_warning =
+			\ g:airline#themes#transparent#palette.normal.airline_warning
+
+	let g:airline#themes#transparent#palette.visual.airline_warning =
+			\ g:airline#themes#transparent#palette.normal.airline_warning
+
+	let g:airline#themes#transparent#palette.visual_modified.airline_warning =
+			\ g:airline#themes#transparent#palette.normal.airline_warning
+
+	let g:airline#themes#transparent#palette.replace.airline_warning =
+			\ g:airline#themes#transparent#palette.normal.airline_warning
+
+	let g:airline#themes#transparent#palette.replace_modified.airline_warning =
+			\ g:airline#themes#transparent#palette.normal.airline_warning
 
 endfunction
 
